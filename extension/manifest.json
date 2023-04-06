@@ -1,0 +1,16 @@
+{
+    "manifest_version": 2,
+    "name": "Hello World Extension",
+    "version": "1.0",
+    "description": "A simple Hello World Chrome extension",
+    "content_scripts": [
+      {
+        "matches": ["*://twitter.com/*"],
+        "js": ["content_script.js"]
+      }
+    ],
+    "icons": {
+      "16": "icon.png"
+    }
+  }
+  

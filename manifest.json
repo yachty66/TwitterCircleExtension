@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "Doge Circle Image Viewer",
+    "version": "1.0",
+    "description": "Display Twitter Circle images for users",
+    "permissions": ["activeTab", "http://*/*", "https://*/*"],
+    "content_scripts": [
+      {
+        "matches": ["https://twitter.com/*"],
+        "js": ["content_script.js"],
+        "css": ["style.css"]
+      }
+    ],
+    "icons": {
+      "48": "icon.png"
+    },
+    "browser_action": {
+      "default_icon": "icon.png"
+    }
+  }
+  
