@@ -53,18 +53,8 @@ def get_twitter_circle_image(username):
 # Route for generating Twitter Circle
 @app.route('/twitter_circle', methods=['POST'])
 def generate_twitter_circle():
-    # i need to get the username 
-    #send json back
     image_data = get_twitter_circle_image("maxhager66")
-
-    #than need to send the url back. currently instead of getting url back i get cors error. how can i avoid the cors error?
-
-
-    #i basically call here the method from above 
-    # here i can take the username and then send it to my backend
-    # Your scraping and processing logic will go here
-    #image_data is that what i will send back to the frontend. how can i do this?
-    return image_data
+    return jsonify({"image_data": image_data})
 
 if __name__ == '__main__':
     app.run(debug=True)
