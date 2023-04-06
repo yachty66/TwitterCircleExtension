@@ -50,11 +50,13 @@ def get_twitter_circle_image(username):
 
     return image_data
     
+
 # Route for generating Twitter Circle
 @app.route('/twitter_circle', methods=['POST'])
 def generate_twitter_circle():
     image_data = get_twitter_circle_image("maxhager66")
     return jsonify({"image_data": image_data})
+
 
 if __name__ == '__main__':
     app.run(debug=True)

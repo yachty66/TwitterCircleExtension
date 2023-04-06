@@ -45,15 +45,31 @@ function sendHelloWorld() {
             }
         })
         .then((data) => {
-            console.log('Image received successfully:', data.image_data);
+            console.log('Image data received:', data.image_data);
             displayTwitterCircleImage(data.image_data);
-            hideLoading();
         })
         .catch((error) => {
             console.error('Error sending message:', error);
             hideLoading();
         });
 }
+
+function displayImage(imageData) {
+    const existingImage = document.querySelector('.twitter-circle-image');
+    if (existingImage) return;
+
+    const image = document.createElement('img');
+    image.src = imageData;
+    image.classList.add('twitter-circle-image');
+    image.style.position = 'fixed';
+    image.style.top = '50%';
+    image.style.left = '50%';
+    image.style.transform = 'translate(-50%, -50%)';
+    image.style.zIndex = '10000'; // Increase the zIndex value
+
+    document.body.appendChild(image);
+}
+
 
 
 function displayLoading() {
@@ -114,7 +130,15 @@ function displayTwitterCircleImage(imageData) {
     cancelButton.addEventListener('click', () => {
         hideTwitterCircleImage();
     });
+
+    // Append the image and cancel button to the image overlay
+    imageOverlay.appendChild(circleImage);
+    imageOverlay.appendChild(cancelButton);
+
+    // Append the image overlay to the document body
+    document.body.appendChild(imageOverlay);
 }
+
 
 // Run the function when the page loads
 addButton();
