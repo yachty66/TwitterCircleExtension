@@ -1,6 +1,5 @@
 function addButton() {
     const targetElements = document.querySelectorAll('.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0');
-
     targetElements.forEach((element) => {
         if (!element.textContent.includes('Joined')) return;
 
@@ -23,10 +22,9 @@ function addButton() {
     });
 }
 
-
 function sendHelloWorld() {
     console.log('Sending message to server...');
-    const url = 'http://127.0.0.1:5000/test'; // Replace this with your server's endpoint
+    const url = 'http://127.0.0.1:5000/twitter_circle'; // Replace this with your server's endpoint
 
     fetch(url, {
         method: 'POST',
@@ -39,6 +37,7 @@ function sendHelloWorld() {
     })
         .then((response) => {
             if (response.ok) {
+                //here i need to add code which is inserting the twitter circle image in twitter. 
                 return response.json();
             } else {
                 throw new Error('Request failed: ' + response.status);
@@ -51,8 +50,6 @@ function sendHelloWorld() {
             console.error('Error sending message:', error);
         });
 }
-
-
 
 // Run the function when the page loads
 addButton();

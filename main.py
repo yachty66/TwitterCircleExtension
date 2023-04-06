@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"*": {"origins": "*"}})
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -50,20 +50,21 @@ def get_twitter_circle_image(username):
 
     return image_data
     
-
-
-
-
-
-
 # Route for generating Twitter Circle
 @app.route('/twitter_circle', methods=['POST'])
 def generate_twitter_circle():
-    #image_data = get_twitter_circle_image("maxhager66")
+    # i need to get the username 
+    #send json back
+    image_data = get_twitter_circle_image("maxhager66")
+
+    #than need to send the url back. currently instead of getting url back i get cors error. how can i avoid the cors error?
+
+
     #i basically call here the method from above 
     # here i can take the username and then send it to my backend
     # Your scraping and processing logic will go here
-    pass
+    #image_data is that what i will send back to the frontend. how can i do this?
+    return image_data
 
 if __name__ == '__main__':
     app.run(debug=True)
