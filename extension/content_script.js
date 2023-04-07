@@ -42,7 +42,7 @@ function sendHelloWorld() {
     displayLoading();
 
     console.log('Sending message to server...');
-    const url = 'https://twittercircleextension.uw.r.appspot.com/twitter_circle'; // Replace this with your server's endpoint
+    const url = 'http://127.0.0.1:5000/twitter_circle'; // Replace this with your server's endpoint
 
     fetch(url, {
         method: 'POST',

@@ -15,9 +15,9 @@ from bs4 import BeautifulSoup
 
 def get_twitter_circle_image(username):
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
+    '''chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--window-size=1920x1080")
+    chrome_options.add_argument("--window-size=1920x1080")'''
     chrome_options.binary_location = "/Applications/AppicationsMe/Google Chrome.app/Contents/MacOS/Google Chrome"
     driver = webdriver.Chrome(executable_path='/Users/maxhager/Applications/AppicationsMe/chromedriver_mac_arm64/chromedriver', options=chrome_options)
     driver.get("https://twittercircle.com/")
