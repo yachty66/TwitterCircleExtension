@@ -10,7 +10,7 @@ function addButton() {
         if (existingButton) return;
 
         const button = document.createElement('button');
-        button.innerText = 'Hello';
+        button.innerText = 'Show Twitter Circle';
         button.style.marginLeft = '8px';
         button.classList.add('hello-world-btn');
         button.addEventListener('click', () => {
@@ -21,12 +21,28 @@ function addButton() {
     });
 }
 
+function getTwitterUsername() {
+    const usernameElement = document.querySelector('.css-901oao.css-1hf3ou5.r-18u37iz.r-37j5jr.r-1wvb978.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0');
+    if (usernameElement) {
+        return usernameElement.textContent.replace('@', '').trim();
+    } else {
+        console.error('Unable to find the Twitter username element.');
+        return null;
+    }
+}
+
 
 function sendHelloWorld() {
+    const username = getTwitterUsername();
+    if (!username) {
+        console.error('Error: Could not find the Twitter username.');
+        return;
+    }
+
     displayLoading();
 
     console.log('Sending message to server...');
-    const url = 'http://127.0.0.1:5000/twitter_circle'; // Replace this with your server's endpoint
+    const url = 'https://twittercircleextension.uw.r.appspot.com/twitter_circle'; // Replace this with your server's endpoint
 
     fetch(url, {
         method: 'POST',
@@ -34,7 +50,7 @@ function sendHelloWorld() {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            message: 'Hello, World!',
+            username: username,
         }),
     })
         .then((response) => {
@@ -47,6 +63,7 @@ function sendHelloWorld() {
         .then((data) => {
             console.log('Image data received:', data.image_data);
             displayTwitterCircleImage(data.image_data);
+            hideLoading();
         })
         .catch((error) => {
             console.error('Error sending message:', error);
@@ -102,6 +119,12 @@ function hideLoading() {
     }
 }
 
+function hideTwitterCircleImage() {
+    const imageOverlay = document.getElementById('twitter-circle-image-overlay');
+    if (imageOverlay) {
+        imageOverlay.remove();
+    }
+}
 
 
 function displayTwitterCircleImage(imageData) {
@@ -131,13 +154,11 @@ function displayTwitterCircleImage(imageData) {
         hideTwitterCircleImage();
     });
 
-    // Append the image and cancel button to the image overlay
     imageOverlay.appendChild(circleImage);
     imageOverlay.appendChild(cancelButton);
-
-    // Append the image overlay to the document body
     document.body.appendChild(imageOverlay);
 }
+
 
 
 // Run the function when the page loads

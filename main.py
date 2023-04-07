@@ -15,6 +15,9 @@ from bs4 import BeautifulSoup
 
 def get_twitter_circle_image(username):
     chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920x1080")
     chrome_options.binary_location = "/Applications/AppicationsMe/Google Chrome.app/Contents/MacOS/Google Chrome"
     driver = webdriver.Chrome(executable_path='/Users/maxhager/Applications/AppicationsMe/chromedriver_mac_arm64/chromedriver', options=chrome_options)
     driver.get("https://twittercircle.com/")
@@ -51,12 +54,21 @@ def get_twitter_circle_image(username):
     return image_data
     
 
-# Route for generating Twitter Circle
 @app.route('/twitter_circle', methods=['POST'])
 def generate_twitter_circle():
-    image_data = get_twitter_circle_image("maxhager66")
-    return jsonify({"image_data": image_data})
+    data = request.get_json()
+    username = data.get('username', None)
+    message = data.get('message', None)
 
+    if not username and not message:
+        return jsonify({"error": "Neither username nor message provided"}), 400
+
+    if username:
+        image_data = get_twitter_circle_image(username)
+        return jsonify({"image_data": image_data})
+    elif message:
+        # Handle the 'message' field if needed
+        pass
 
 if __name__ == '__main__':
     app.run(debug=True)
